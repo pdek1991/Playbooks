@@ -1,0 +1,23 @@
+
+- name: Stop crio on ac2 hosts
+  hosts: hosts
+  tasks:
+    - name: Get PID of crio process
+      shell:
+        cmd: "pidof crio"  
+        # Process variable from host_vars
+      register: pid
+      notify: 
+        - restart crio
+    - debug:
+        var: pid
+ 
+  handlers:
+    - name: restart crio
+      service:
+         name: crio
+         state: restarted
+      register: pid2
+    
+    - debug:
+        var: pid2

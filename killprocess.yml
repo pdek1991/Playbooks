@@ -1,0 +1,18 @@
+- name: Stop mysqld on db hosts
+  hosts: db
+  tasks:
+    - name: Get PID of mysqld process
+      shell:
+        cmd: "pidof \"{{process}}\""
+      register: pid
+
+    - name: Kill mysqld process
+      shell:
+        cmd: "kill -15 {{pid.stdout}} && echo 'Killed process' || echo 'Process not running'"
+      become: yes
+      become_user: root
+      when: pid.stdout != ''
+      register: kill_status
+
+    - debug:
+        var: kill_status

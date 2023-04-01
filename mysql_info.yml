@@ -1,0 +1,29 @@
+- name: Collect MySQL DB info and stats
+  hosts: 192.168.56.112
+  gather_facts: no
+  become: yes
+  vars:
+    mysql_user: pdek
+    mysql_password: pdek
+  tasks:
+    - name: Get list of databases
+      mysql_db_info:
+        login_host: localhost
+        login_user: "{{ mysql_user }}"
+        login_password: "{{ mysql_password }}"
+      register: db_info
+
+    - name: Display database info
+      debug:
+        var: db_info.databases
+
+    - name: Get database status
+      mysql_variables:
+        login_host: localhost
+        login_user: "{{ mysql_user }}"
+        login_password: "{{ mysql_password }}"
+      register: db_status
+
+    - name: Display database status
+      debug:
+        var: db_status

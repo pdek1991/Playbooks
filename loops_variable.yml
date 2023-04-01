@@ -1,0 +1,13 @@
+- name: Loop using variable
+  hosts: hosts
+  vars:
+    process:
+      - docker
+      - crio
+  tasks:
+    - name: check process status
+      service: 
+        name: "{{ item }}"
+        state: restarted
+
+      loop: "{{ process }}"

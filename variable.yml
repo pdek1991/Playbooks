@@ -1,0 +1,12 @@
+- name: Install mysqld
+  hosts: db
+  vars:
+    package: mysql
+  tasks:
+    - name: install mysqld
+      yum:
+        name: "{{package}}"
+        state: stopped
+      register: install_status
+
+    - debug: var=install_status

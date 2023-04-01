@@ -1,0 +1,10 @@
+---
+- name: Get list of all hosts in a group
+  hosts: hosts
+  gather_facts: no
+  tasks:
+    - name: Debug hosts in group
+      debug:
+        msg: "{{ item }}"
+
+      loop: "{{ query('inventory_hostnames', 'all') }}"

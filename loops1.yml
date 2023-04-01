@@ -1,0 +1,14 @@
+- name: simple loop to check sttatus mysqld and grafana-server
+  hosts: db
+  tasks:
+    - name: Task to loop over list and check status
+      service: 
+         name: "{{ item }}"
+         state: restarted
+      register: echo
+
+      loop:
+        - mysqld
+        - grafana-server
+    - debug:
+        var: echo.state

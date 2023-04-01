@@ -1,0 +1,23 @@
+- name: Loop over dictionary
+  hosts: hosts
+  gather_facts: false
+  tasks:
+    - name: hostwise process check
+      service:
+        name: "{{ item.process }}"
+        state: restarted
+      loop:
+        - name: ac1
+          process: docker
+        - name: ac2
+          process: crio
+
+    - name: Ping hosts
+      ping:
+        data: "{{ item.name }}"
+
+      loop:
+        - name: master
+          process: docker
+        - name: worker-ac2
+          process: crio

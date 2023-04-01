@@ -1,0 +1,9 @@
+---
+- name: User creation using user module 
+  gather_facts: smart
+  hosts: hosts
+  tasks:
+    - name: Create user
+      user:
+        name: pdek
+        state: present

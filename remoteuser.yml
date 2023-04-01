@@ -1,0 +1,13 @@
+- name: check /var/log/message by sudoing to root from pdek user
+  hosts: hosts
+  #remote_user: pdek
+  become: yes
+  become_method: sudo
+  tasks:
+    - name: head /var/log/message file
+      command: head /var/log/messages
+      register: output
+
+    - name: Display 
+      debug:
+        var: output.stdout_lines

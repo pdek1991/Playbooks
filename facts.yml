@@ -1,0 +1,7 @@
+- name: get facts
+  hosts: ac1
+  tasks:
+    - name: gate host facts
+      debug: 
+        var: ansible_env
+

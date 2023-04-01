@@ -1,0 +1,12 @@
+---
+- name: Get list of all hosts in a group
+  hosts: ac1
+  gather_facts: no
+  tasks:
+    - include_tasks: inner.yml
+      loop:
+        - 1
+        - 2
+        - 3
+      loop_control:
+        loop_var: outer_item

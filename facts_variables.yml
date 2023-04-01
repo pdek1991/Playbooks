@@ -1,0 +1,10 @@
+- name: Ping IPv4 addresses
+  hosts: localhost
+  gather_facts: yes
+  
+  tasks:
+    - name: Ping each IP address
+      ping:
+        dest: "{{ item }}"
+      loop: "{{ ansible_facts.ipv4_addresses }}"
+      when: item is ipv4

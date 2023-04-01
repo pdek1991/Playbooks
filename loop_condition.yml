@@ -1,0 +1,15 @@
+---
+- name: check status of mysqld
+  hosts: db
+  gather_facts: no
+  tasks:
+    - name: check mysql status
+      command: systemctl is-active mysqld
+      ignore_errors: yes
+      register: status
+
+    - name: Restart mysqld
+      service:
+        name: mysqld
+        state: restarted
+      when: status.rc == 0

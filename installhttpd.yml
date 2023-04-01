@@ -1,0 +1,11 @@
+## Playbook 2
+
+---
+- name: Install httpd
+  gather_facts: smart
+  hosts: hosts
+  tasks:
+    - name: Install httpd package
+      yum:
+        name: httpd
+        state: absent
